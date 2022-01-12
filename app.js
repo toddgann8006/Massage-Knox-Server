@@ -3,15 +3,32 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+var pug = require('pug');
 
 var indexRouter = require('./routes/index');
 const userRouter = require('./routes/userRouter');
 
+const mongoose = require('mongoose');
+
+const url = 'mongodb://localhost:27017/massageknox';
+const connect = mongoose.connect(url, {
+  useCreateIndex: true,
+  useFindAndModify: false,
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+});
+
+connect.then(() => console.log('Connected correctly to server'),
+  err => console.log(err)
+);
+
 var app = express();
 
 // view engine setup
+app.engine('pug', require('pug').__express);
 app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'jade');
+app.set('view engine', 'pug');
+
 
 app.use(logger('dev'));
 app.use(express.json());
