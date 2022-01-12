@@ -5,13 +5,22 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var pug = require('pug');
 
+const { MongoClient } = require('mongodb');
+const uri = "mongodb+srv://firstuser:CwUqcBc9mS9DBss@massageknox.zwe4a.mongodb.net/massageknox?retryWrites=true&w=majority";
+const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
+client.connect(err => {
+  const collection = client.db("test").collection("devices");
+  // perform actions on the collection object
+  client.close();
+});
+
 var indexRouter = require('./routes/index');
 const userRouter = require('./routes/userRouter');
 
 const mongoose = require('mongoose');
 
 const url = 'mongodb://localhost:27017/massageknox';
-const connect = mongoose.connect(url, {
+const connect = mongoose.connect(uri, {
   useCreateIndex: true,
   useFindAndModify: false,
   useNewUrlParser: true,
