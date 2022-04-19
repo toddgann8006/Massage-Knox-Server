@@ -1,7 +1,3 @@
-if (process.env.NODE_ENV !== "production") {
-  require("dotenv").config();
-}
-
 var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
@@ -10,7 +6,7 @@ var logger = require('morgan');
 var pug = require('pug');
 
 const { MongoClient } = require('mongodb');
-const uri = process.env.DB_URL;
+const uri = "mongodb+srv://firstuser:2CuZVtGgTsQyHbBg@massageknox.zwe4a.mongodb.net/massageknox?retryWrites=true&w=majority"
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 client.connect(err => {
   const collection = client.db("test").collection("devices");
