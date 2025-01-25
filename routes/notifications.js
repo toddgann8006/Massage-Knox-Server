@@ -1,15 +1,13 @@
 const express = require('express');
 const router = express.Router();
-const { sendNotification } = require('../services/notification');
 
-router.post('/notifications', async (req, res) => {
-    try {
-        const { title, body } = req.body;
-        const result = await sendNotification(title, body);
-        res.json(result);
-    } catch (error) {
-        res.status(500).json({ error: error.message });
-    }
+router.post('/notifications', (req, res) => {
+    const { title, body } = req.body;
+    res.json({
+        success: true,
+        message: 'Notification received',
+        data: { title, body }
+    });
 });
 
 module.exports = router;
