@@ -9,6 +9,11 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var pug = require('pug');
 
+var app = express();
+
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
 const { MongoClient } = require('mongodb');
 const uri = process.env.DB_URL;
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
@@ -35,8 +40,6 @@ const connect = mongoose.connect(uri, {
 connect.then(() => console.log('Connected correctly to server'),
   err => console.log(err)
 );
-
-var app = express();
 
 // view engine setup
 app.engine('pug', require('pug').__express);
