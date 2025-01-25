@@ -20,6 +20,7 @@ client.connect(err => {
 
 var indexRouter = require('./routes/index');
 const userRouter = require('./routes/userRouter');
+const notificationRouter = require('./routes/notifications');
 
 const mongoose = require('mongoose');
 
@@ -51,6 +52,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/user', userRouter);
+app.use('/api', notificationRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
