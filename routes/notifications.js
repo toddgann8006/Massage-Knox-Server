@@ -3,6 +3,7 @@ const router = express.Router();
 const admin = require('firebase-admin');
 
 router.post('/', async (req, res) => {
+    console.log('Request received:', req.body);
     const { title, body } = req.body;
 
     try {
