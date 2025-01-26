@@ -1,13 +1,34 @@
 const express = require('express');
 const router = express.Router();
+const admin = require('firebase-admin');
 
-router.post('/notifications', (req, res) => {
+router.post('/notifications', async (req, res) => {
     const { title, body } = req.body;
-    res.json({
-        success: true,
-        message: 'Notification received',
-        data: { title, body }
-    });
+
+    try {
+        const message = {
+            notification: {
+                title,
+                body
+            },
+            topic: 'all'
+        };
+
+        const response = await admin.messaging().send(message);
+
+        res.json({
+            success: true,
+            message: 'Notification sent successfully',
+            response
+        });
+    } catch (error) {
+        console.error('Error sending notification:', error);
+        res.status(500).json({
+            success: false,
+            message: 'Error sending notification',
+            error: error.message
+        });
+    }
 });
 
 module.exports = router;
