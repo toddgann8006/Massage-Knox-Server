@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const admin = require('firebase-admin');
 
-router.post('/notifications', async (req, res) => {
+router.post('/', async (req, res) => {
     const { title, body } = req.body;
 
     try {
