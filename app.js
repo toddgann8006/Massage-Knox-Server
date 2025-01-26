@@ -11,6 +11,20 @@ var pug = require('pug');
 
 var app = express();
 
+// Add Firebase Admin initialization here
+const admin = require('firebase-admin');
+admin.initializeApp({
+  credential: admin.credential.cert({
+    projectId: process.env.FIREBASE_PROJECT_ID,
+    clientEmail: process.env.FIREBASE_CLIENT_EMAIL,
+    privateKey: process.env.FIREBASE_PRIVATE_KEY?.replace(/\\n/g, '\n')
+  })
+});
+
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
